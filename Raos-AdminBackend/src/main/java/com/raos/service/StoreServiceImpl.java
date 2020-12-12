@@ -12,6 +12,7 @@ import com.raos.logger.CommonLogger;
 import com.raos.model.CategoryUpload;
 import com.raos.model.Offers;
 import com.raos.model.ProductUpload;
+import com.raos.model.StockDetails;
 import com.raos.model.StocksUpload;
 import com.raos.model.StoreDelivery;
 import com.raos.model.StoreProducts;
@@ -143,6 +144,8 @@ public class StoreServiceImpl implements StoreService {
     public void saveStocks(MultipartFile file) {
 	    try {
 	      List<StocksUpload> stocks = CSVHelper.csvToStocks(file.getInputStream());
+	      storeDao.createBackupStocksTable();
+	      storeDao.deleteStocksTable();
 	     System.out.println("STARTED TO INSERT :"+dateFormat.format(new Date()));
 	     for (StocksUpload stocksupload : stocks) {
 	    	 storeDao.saveStocks(stocksupload);
@@ -155,6 +158,11 @@ public class StoreServiceImpl implements StoreService {
 	    
 	    }
 	  }
+	
+	@Override
+	public List<StockDetails> viewStocks() {
+		return storeDao.viewStocks();
+	}
 
 	
 

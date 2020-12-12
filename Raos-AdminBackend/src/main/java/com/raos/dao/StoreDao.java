@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.raos.model.CategoryUpload;
 import com.raos.model.Offers;
 import com.raos.model.ProductUpload;
+import com.raos.model.StockDetails;
 import com.raos.model.StocksUpload;
 import com.raos.model.StoreDelivery;
 import com.raos.model.StoreProducts;
@@ -46,5 +47,11 @@ public interface StoreDao {
 	public boolean deleteVoucher(int vocuher_id);
 
 	public void saveStocks(StocksUpload stocksupload);
+	
+	public void createBackupStocksTable();
+	
+	public void deleteStocksTable();
+
+	public List<StockDetails> viewStocks();
 	
 	}

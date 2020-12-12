@@ -15,6 +15,7 @@ import com.raos.model.CommonDataResponse;
 import com.raos.model.CommonResponse;
 import com.raos.model.CommonSingleResponse;
 import com.raos.model.Offers;
+import com.raos.model.StockDetails;
 import com.raos.model.StoreDelivery;
 import com.raos.model.StoreProducts;
 import com.raos.model.Vouchers;
@@ -351,6 +352,23 @@ public class StoreBusiness {
 		 commonResponse.setStatus(HttpStatus.BAD_REQUEST.toString());
 		 commonResponse.setMessage("Please upload CSV file");
 		  return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
+	}
+
+
+	public Object viewStocks() {
+		List<StockDetails> sclist  = storeService.viewStocks();
+		if (sclist.size() > 0) {
+			LOGGER.info(this.getClass(), "STORE STOCKS DETAILS LISTED SUCCESSFULLY");
+			commonSingleResponse.setStatus(HttpStatus.OK.toString());
+			commonSingleResponse.setMessage("Store Stocks details Listed Successfully");
+			commonSingleResponse.setData(sclist);
+			return new ResponseEntity<CommonSingleResponse>(commonSingleResponse, HttpStatus.OK);
+		} else {
+			LOGGER.error(this.getClass(), "STORE STOCKS DETAILS NOT FOUND");
+			commonResponse.setStatus(HttpStatus.NOT_FOUND.toString());
+			commonResponse.setMessage("Store Stocks details not found");
+			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
+		}
 	}
 
 

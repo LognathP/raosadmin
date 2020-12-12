@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -21,6 +24,7 @@ import com.raos.model.CategoryUpload;
 import com.raos.model.DeliveryTimeSlot;
 import com.raos.model.Offers;
 import com.raos.model.ProductUpload;
+import com.raos.model.StockDetails;
 import com.raos.model.StocksUpload;
 import com.raos.model.StoreDelivery;
 import com.raos.model.StoreProducts;
@@ -582,5 +586,92 @@ public class StoreDaoImpl implements StoreDao {
 		}
 	}
 	
+	@Override
+	public void createBackupStocksTable()
+	{
+		Connection connection = null;
+		Statement stmt = null;
+		try {
+			connection = jdbctemp.getDataSource().getConnection();
+			stmt = connection.createStatement();
+			stmt.executeUpdate("create table stocks_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new Date())+" as table stocks");
 	
+		} catch (Exception e) {
+			LOGGER.debug(this.getClass(), "ERROR IN DB WHILE createBackupStocksTable " + e.getMessage());
+			e.printStackTrace();
+		}
+		 finally {
+				try {
+					stmt.close();
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					LOGGER.error(this.getClass(), "ERROR IN DB WHILE CLOSING DB createBackupStocksTable " + e.getMessage());
+				}
+
+			}
+	}
+	@Override
+	public void deleteStocksTable()
+	{
+		Connection connection = null;
+		PreparedStatement preStmt = null;
+		try {
+			connection = jdbctemp.getDataSource().getConnection();
+			preStmt = connection.prepareStatement("delete from stocks");
+			preStmt.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(this.getClass(), "ERROR IN DB WHILE deleteStocksTable " + e.getMessage());
+			e.printStackTrace();
+		}
+		 finally {
+				try {
+					preStmt.close();
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					LOGGER.error(this.getClass(), "ERROR IN DB WHILE CLOSING DB deleteStocksTable " + e.getMessage());
+				}
+
+			}
+	}
+	
+	@Override
+	public List<StockDetails> viewStocks() {
+		Connection connection = null;
+		PreparedStatement preStmt = null;
+		ResultSet res = null;
+		
+		List<StockDetails> stockList = new ArrayList<>();
+		try {
+			connection = jdbctemp.getDataSource().getConnection();
+			preStmt = connection.prepareStatement(StoreQueryConstants.GET_STOCKS);
+			res = preStmt.executeQuery();
+			while(res.next()) {
+				StockDetails st = new StockDetails();
+				st.setProductName(res.getString(1));
+				st.setDiscountFlag(res.getString(2));
+				st.setProductId(res.getInt(3));
+				st.setBalanceStock(res.getInt(4));
+				st.setMrpPrice(res.getInt(5));
+				st.setSalesPrice(res.getInt(6));
+				stockList.add(st);
+			}
+
+		} catch (Exception e) {
+			LOGGER.debug(this.getClass(), "ERROR IN DB WHILE viewStocks " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				preStmt.close();
+				connection.close();
+				res.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				LOGGER.error(this.getClass(), "ERROR IN DB WHILE CLOSING DB ON viewStocks " + e.getMessage());
+			}
+
+		}
+		return stockList;
+	}
 }

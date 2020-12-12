@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.raos.model.Offers;
+import com.raos.model.StockDetails;
 import com.raos.model.StoreDelivery;
 import com.raos.model.StoreProducts;
 import com.raos.model.Vouchers;
@@ -43,4 +44,6 @@ public interface StoreService {
 	public boolean deleteVoucher(int voucher_id);
 
 	public void saveStocks(MultipartFile file);
+
+	public List<StockDetails> viewStocks();
 }

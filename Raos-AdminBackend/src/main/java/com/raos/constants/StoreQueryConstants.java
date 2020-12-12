@@ -43,5 +43,7 @@ public interface StoreQueryConstants {
 	String DELETE_VOUCHER = "delete from vouchers where id=?";
 	
 	String ADD_STOCKS = "INSERT INTO stocks (product_id, balance_stock, sales_price, mrp_price, created, updated, stock_id) VALUES(?, ?, ?, ?, current_date, current_date, nextval('seq_stock_id'))";
-	
+
+	String GET_STOCKS = "select 	p.product_name,	p.discount_flag,s.product_id,sum(s.balance_stock) as stock,	max(s.mrp_price) as mrp_price,	max(s.sales_price) as sales_price\r\n" + 
+			"from stocks s,products p where	p.product_id = s.product_id	group by s.product_id,p.product_name,p.discount_flag order by s.product_id";
 }

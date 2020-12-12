@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.raos</groupId>
-	<artifactId>Raos</artifactId>
+	<artifactId>RaosAdmin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Raos Admin</name>
 	<description>Raos Admin for Spring Boot</description>

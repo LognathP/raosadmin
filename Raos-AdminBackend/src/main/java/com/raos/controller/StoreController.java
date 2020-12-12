@@ -115,6 +115,12 @@ private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:s
 		Logger.info(this.getClass(),"UPLOAD STOCKS DETAILS API CALL STARTED AT "+dateFormat.format(new Date()));
 		return storeBusiness.uploadStocks(file);
 	}
+	
+	@PostMapping("/api/store/viewstocks")
+	public Object viewStocks() {
+		Logger.info(this.getClass(),"VIEW STOCKS DETAILS API CALL STARTED AT "+dateFormat.format(new Date()));
+		return storeBusiness.viewStocks();
+	}
 
 	
 }

@@ -108,11 +108,13 @@ public class OrderDaoImpl implements OrderDao {
 				od.setOrder_id(rs.getInt("order_id"));
 				od.setCustomer_id(rs.getInt("customer_id"));
 				od.setOrder_status(rs.getInt("order_status"));
+				od.setVoucher_id(rs.getInt("voucher_id"));
 				od.setOrder_total(rs.getDouble("order_total"));
 				od.setOrder_grand_total(rs.getDouble("order_grand_total"));
 				od.setOrder_date(rs.getString("created"));
 				OrderDelivery odl = new OrderDelivery();
 				odl.setAddress_type(rs.getInt("address_type"));
+				odl.setPincode(rs.getString("pincode"));
 				Gson gson = new Gson(); 
 				OrderDelivery[] adarray = gson.fromJson(rs.getString("address_location"), OrderDelivery[].class); 
 				for(OrderDelivery df : adarray) {
