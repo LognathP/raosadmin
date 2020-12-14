@@ -28,7 +28,7 @@ private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:s
 	@Autowired
 	StoreBusiness storeBusiness;
 
-	@PostMapping("/api/store/getDelivery")
+	@PostMapping("/api/store/getDeliverySlots")
 	public Object getDelivery() {
 		Logger.info(this.getClass(),"GET DELIVERY DETAILS API CALL STARTED AT "+dateFormat.format(new Date()));
 		return storeBusiness.getDelivery();

@@ -80,7 +80,7 @@ public class StoreBusiness {
 		else
 		{
 			LOGGER.error(this.getClass(), "SLOTS NOT UPDATED");
-			commonResponse.setStatus(HttpStatus.NOT_FOUND.toString());
+			commonResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 			commonResponse.setMessage("Slots not updated");
 			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
 		}
@@ -122,7 +122,7 @@ public class StoreBusiness {
 		else
 		{
 			LOGGER.error(this.getClass(), "PRODUCT NOT UPDATED");
-			commonResponse.setStatus(HttpStatus.NOT_FOUND.toString());
+			commonResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 			commonResponse.setMessage("Product not updated");
 			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
 		}
@@ -140,7 +140,7 @@ public class StoreBusiness {
 		else
 		{
 			LOGGER.error(this.getClass(), "UNABLE TO DELETE PRODUCT");
-			commonResponse.setStatus(HttpStatus.NOT_FOUND.toString());
+			commonResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 			commonResponse.setMessage("Unable to delete product");
 			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
 		}
@@ -213,7 +213,7 @@ public class StoreBusiness {
 		else
 		{
 			LOGGER.error(this.getClass(), "UNABLE TO DELETE OFFER");
-			commonResponse.setStatus(HttpStatus.NOT_FOUND.toString());
+			commonResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 			commonResponse.setMessage("Unable to delete offer");
 			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
 		}
@@ -311,7 +311,7 @@ public class StoreBusiness {
 		} else {
 			LOGGER.error(this.getClass(), "UNABLE TO UPDATE VOUCHER");
 			commonResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-			commonResponse.setMessage("Unable to Voucher Offer");
+			commonResponse.setMessage("Unable to Update Voucher ");
 			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
 		}
 	}
@@ -328,7 +328,7 @@ public class StoreBusiness {
 		else
 		{
 			LOGGER.error(this.getClass(), "UNABLE TO DELETE VOUCHER");
-			commonResponse.setStatus(HttpStatus.NOT_FOUND.toString());
+			commonResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 			commonResponse.setMessage("Unable to delete Voucher");
 			return new ResponseEntity<CommonResponse>(commonResponse, HttpStatus.OK);
 		}

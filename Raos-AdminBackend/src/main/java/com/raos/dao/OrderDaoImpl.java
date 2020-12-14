@@ -79,19 +79,19 @@ public class OrderDaoImpl implements OrderDao {
 			{
 				queryBuilder.append(" and o.created between to_timestamp(?,'YYYY-MM-DD HH24:MI:SS.S') and to_timestamp(?,'YYYY-MM-DD HH24:MI:SS.S')");
 			}
-			else
+			else if(orderFilter.getCustomer_id()==0 && orderFilter.getOrder_id()==0 && orderFilter.getStatus()==0)
 			{
 				queryBuilder.append(" and o.created >=current_timestamp - interval '10 day' and o.created <=current_timestamp");
 			}
-			if(orderFilter.getCustomer_id()!=0)
+			else if(orderFilter.getCustomer_id()!=0)
 			{
 				queryBuilder.append(" and o.customer_id = "+orderFilter.getCustomer_id());
 			}
-			if(orderFilter.getOrder_id()!=0)
+			else if(orderFilter.getOrder_id()!=0)
 			{
 				queryBuilder.append(" and o.order_id = "+orderFilter.getOrder_id());
 			}
-			if(orderFilter.getStatus()!=0)
+			else if(orderFilter.getStatus()!=0)
 			{
 				queryBuilder.append(" and o.order_status = "+orderFilter.getStatus());
 			}		

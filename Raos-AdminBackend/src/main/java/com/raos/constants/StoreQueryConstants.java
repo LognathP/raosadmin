@@ -38,7 +38,7 @@ public interface StoreQueryConstants {
 	
 	String ADD_VOUCHER = "INSERT INTO vouchers (id, voucher_name, voucher_code, status, created, updated, image_url) VALUES(nextval('seq_voucher_id'), ?, ?, 1, current_date,current_Date,?)";
 	
-	String UPDATE_VOUCHER = "update vouchers set voucher_name=?,voucher_code=?,status=?,image_url=?,updated=current_date where offer_id=?";
+	String UPDATE_VOUCHER = "update vouchers set voucher_name=?,voucher_code=?,status=?,image_url=?,updated=current_date where id=?";
 	
 	String DELETE_VOUCHER = "delete from vouchers where id=?";
 	
